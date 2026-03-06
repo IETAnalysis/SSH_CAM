@@ -12,16 +12,7 @@ SSH-CAM implements a multi-stage training strategy:
 
 ---
 
-## 🌟 Key Features
-- **Backbone Flexibility**: Toggle between `Transformer` (Global context) and `GRU` (Lightweight sequential) via CLI.
-- **Dual Loss Logic**: Choose between `GMM` (Euclidean distance manifold) and `Softmax` (Cross-Entropy).
-- **Temporal Rectification**: Non-linear redistribution of inter-packet intervals to handle heavy-tailed network distributions.
-- **Industrial Engineering**: 
-    - Full CLI parameterization (no hidden defaults).
-    - Multi-threaded data pre-fetching.
-    - Automated numerical stability guards.
 
----
 
 ## 📂 Project Structure
 ```text
@@ -33,14 +24,13 @@ SSH-CAM implements a multi-stage training strategy:
 └── README.md           
 ```
 
+
 ## 🛠️ Installation
-Prerequisites
-- **Python 3.8+
-- **PyTorch 1.10+
-- **CUDA Toolkit (Recommended)
-Setup
+
+- Python 3.8+
+- PyTorch 1.10+
+- **CUDA Toolkit** (Recommended)
+
 ```bash
 pip install torch torchvision torchaudio
 pip install numpy tqdm tensorboard scikit-learn
-```
-
