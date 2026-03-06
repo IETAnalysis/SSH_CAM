@@ -1,18 +1,7 @@
 # SSH-CAM: Fine-grained SSH Behavior Identification Framework
 
-SSH-CAM (SSH Curriculum-Adaptive Mixup) is an industrial-grade framework designed for identifying specific user behaviors within encrypted SSH tunnels. It addresses real-world network challenges such as background noise, heartbeat packets, and interleaved traffic by combining **Sequence-Aware Structural Interpolation** with **Gain-Based Curriculum Learning**.
+SSH-CAM is a curriculum-guided framework for fine-grained SSH behavior identification at encrypted tunnel observation points, designed to accurately infer the dominant SSH behavior in the presence of co-existing interfering behaviors within the captured traffic. The framework constructs packet-level representations encoding both structural attributes and temporal dynamics, followed by sequence-level feature extraction. A Curriculum-Adaptive Mixup mechanism is introduced to progressively increase training difficulty through controlled structural interpolation between behavioral categories. The learned latent representations are further constrained by a Gaussian Mixture Model (GMM) to promote intra-class compactness and inter-class separability under interference conditions.
 
-## 📑 Table of Contents
-1. [Overview](#overview)
-2. [Key Features](#key-features)
-3. [Project Structure](#project-structure)
-4. [Installation](#installation)
-5. [Usage](#usage)
-6. [Hyperparameters](#hyperparameters)
-7. [Industrial Safeguards](#industrial-safeguards)
-8. [Monitoring](#monitoring)
-
----
 
 ## 🔍 Overview
 SSH-CAM implements a multi-stage training strategy:
@@ -37,9 +26,21 @@ SSH-CAM implements a multi-stage training strategy:
 ## 📂 Project Structure
 ```text
 .
-├── train.py             # Main entry point: Training loop & GMM loss logic
-├── architecture.py      # Model Factory: Backbones, Fusion, & Temporal Encoders
-├── dataset_engine.py    # Data Engine: Structural Mixup & Robust Loading
-├── utils.py             # Operations: Curriculum Scheduler & Logging
-└── README.md            # Documentation
+├── main.py            
+├── model.py      
+├── dataset.py    
+├── utils.py             
+└── README.md           
 ```
+
+## 🛠️ Installation
+Prerequisites
+- **Python 3.8+
+- **PyTorch 1.10+
+- **CUDA Toolkit (Recommended)
+Setup
+```bash
+pip install torch torchvision torchaudio
+pip install numpy tqdm tensorboard scikit-learn
+```
+
