@@ -8,7 +8,32 @@ This repository provides a dataset for fine-grained SSH behavior identification 
 
 To simulate realistic and challenging network environments, all encapsulated traffic is **end-to-end encrypted** (utilizing TLS or QUIC), making payload inspection infeasible. Multiple SSH behavioral flows may be interleaved within a single tunnel flow due to application-layer multiplexing.
 
+📥 **Dataset Download Link**: [Google Drive (SSH Encrypted Tunneling Dataset)](https://drive.google.com/drive/folders/1hC_5yCFaCc0fsvpzmmWHpyqGe9Y2Nkki?usp=sharing)
+
+---
+
+### Taxonomy of SSH Encrypted Traffic Behaviors
+
+The 10 SSH behavior categories are meticulously designed to cover typical interactive and automated tasks, categorized into three main groups:
+
+| Category | Behavior Type | Description | Traffic Pattern |
+| :--- | :--- | :--- | :--- |
+| **Administrative Querying** | (1) System Status | Retrieval of basic metadata such as user identity, OS version, and runtime status. | Extremely short duration; minimal data volume; predominantly request-response. |
+| | (2) Network Topology | Enumeration of network interfaces, routing tables, and connection states. | Short duration; response payload slightly larger than system status. |
+| | (3) File System Enumeration | Browsing directory structures and querying file attributes or disk usage. | Interactive output; highly structured burst patterns. |
+| | (4) Configuration Access | Reading system or application configurations to locate key parameters/credentials. | Small-scale text transmission; output exhibits distinct semantic structure. |
+| **Data Manipulation** | (5) Data Exfiltration | Transferring files from the target system to a remote server. | Sustained outbound data transmission; significant directionality. |
+| | (6) Tool Implantation | Uploading files or payloads to the target system. | Sustained inbound data transmission; significant directionality. |
+| | (7) Bulk Output | Direct output of large-scale files or log contents. | Continuous data output; relatively smooth transmission rate. |
+| **Persistent Monitoring** | (8) Resource Monitoring | Periodic retrieval of system performance metrics. | Long duration; periodic or quasi-periodic small data bursts. |
+| | (9) Log Auditing | Continuous listening for new entries in system or application logs. | Long duration; event-driven data output; irregular inter-arrival times. |
+| | (10) Interactive Session | Maintaining a persistent interactive shell environment. | Long duration; significant bidirectional interaction; irregular traffic bursts. |
+
+---
+
 ### Traffic Statistics
+
+The data volume and tunnel distribution are detailed below:
 
 | Protocol / Tunnel | Total Flows | Train Set | Eval Set | Description & Encryption Mechanism |
 | :--- | :--- | :--- | :--- | :--- |
@@ -19,17 +44,6 @@ To simulate realistic and challenging network environments, all encapsulated tra
 | **TUIC (`tuic`)** | 741 | 592 | 149 | UDP-based proxy over QUIC (Inherently TLS 1.3 encrypted) |
 | **VMess (`vmess`)** | 741 | 592 | 149 | TCP-based proxy protocol (TLS encrypted payload) |
 | **Total (6 Tunnels)** | **4,440** | **3,548** | **892** | 10 SSH behavior categories in total |
-
-> **Note:** The evaluation set provided here serves as the base (zero-interference) traffic. It is used to dynamically generate the mixed-interference (`MI-0` to `MI-25`) evaluation sets for robustness testing.
-<img width="2414" height="991" alt="image" src="https://github.com/user-attachments/assets/39874d55-58ba-4373-9d6b-719193fd5abe" />
-
-
-## 🔍 Overview
-SSH-CAM implements a multi-stage training strategy:
-1. **Heterogeneous Embedding**: Maps packet length, direction, and timing into a shared latent space via Gated Fusion.
-2. **Structural Mixup**: Synthesizes mixed flows using an **Anchor Packet** mechanism to maintain temporal causality.
-3. **Curriculum Scheduling**: Progressively increases traffic interference based on the model's training gain ($G$).
-4. **Manifold Regularization**: Enforces geometric compactness in the feature space using a Gaussian Mixture Model (GMM).
 
 ---
 
