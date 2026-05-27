@@ -51,7 +51,6 @@ The data volume and tunnel distribution are detailed below:
 
 ## 📂 Project Structure
 ```text
-.
 ├── main.py            
 ├── model.py      
 ├── dataset.py    
