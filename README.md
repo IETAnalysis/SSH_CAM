@@ -33,7 +33,7 @@ The 10 SSH behavior categories are meticulously designed to cover typical intera
 
 ### Traffic Statistics
 
-The data volume and tunnel distribution are detailed below:
+The tunnel distribution are detailed below:
 
 | Protocol / Tunnel | Total Flows | Train Set | Eval Set | Description & Encryption Mechanism |
 | :--- | :--- | :--- | :--- | :--- |
